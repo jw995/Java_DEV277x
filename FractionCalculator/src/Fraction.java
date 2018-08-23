@@ -43,7 +43,7 @@ public class Fraction {
     }
 
     public Fraction add(Fraction other){
-        Fraction sum=new Fraction((num*other.den)+(den*other.num), (other.den)*den);
+        Fraction sum=new Fraction((num*other.den)+(this.den*other.num), (other.den)*this.den);
         sum.toLowestTerms();
         return sum;
     }
@@ -80,17 +80,14 @@ public class Fraction {
     }
 
     public void toLowestTerms(){
-        num=num/gcd(num,den);
-        den=den/gcd(num,den);
+        int gcd = gcd(num,den);
+        num=num/gcd;
+        den=den/gcd;
+        //System.out.println("gcd: "+gcd);
     }
 
     public static int gcd(int num, int den){
         //  greatest common denominator
-        int rem = num % den;
-        if (rem == 0){
-            return den;
-        }else {
-            return gcd(den, rem);
-        }
+        return num % den == 0 ? den : gcd(den, num % den);
     }
 }
